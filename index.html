@@ -8,33 +8,16 @@
     <div class="container">
         <h1>Cek Umur</h1>
         
-        <form id="cekForm" method="post">
-            <label>Tanggal Lahir Anda:</label><br>
+        <form method="post" action="index.php">
+            <label>Tanggal Lahir Anjeun:</label><br>
             <input type="date" name="tanggal_lahir">
             <br><br>
-            <button type="submit">Cek</button>
+            <button type="submit" class="cek-button">Cek</button>
         </form>
         
         <div id="result">
-            <!-- Hasil dari PHP akan ditampilkan di sini -->
+            <?php include 'process.php'; ?>
         </div>
     </div>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#cekForm').submit(function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'index.php',
-                    data: $('#cekForm').serialize(),
-                    success: function(response) {
-                        $('#result').html(response);
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
