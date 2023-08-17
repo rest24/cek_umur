@@ -12,12 +12,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hari_lahir_name = $hariNames[date("w", $tanggal_lahir)];
         
         echo "<div id='result'>";
-        echo "Umur Anda: " . $umur_tahun . " tahun<br>";
-        echo "Tanggal Lahir: " . date("d F Y", $tanggal_lahir) . "<br>";
-        echo "Hari Lahir: " . $hari_lahir_name . "<br>";
+        echo "Umur Silaing: " . $umur_tahun . " tahun<br>";
+        echo "Tanggal : " . date("d F Y", $tanggal_lahir) . "<br>";
+        echo "Lahir Poe : " . $hari_lahir_name . "<br>";
+        echo "Catatan : Geura kawin geus kolot :D";
         echo "</div>";
     } else {
-        echo "<div id='result'>Pilih tanggal lahir Anda.</div>";
+        echo "<div id='result'>Pilih heula ...!!</div>";
     }
 }
 ?>
