@@ -19,7 +19,8 @@
             border-radius: 10px;
             box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 300px;
+            width: 100%; /* Lebar maksimum */
+            max-width: 400px; /* Batasi lebar agar tidak terlalu lebar */
         }
         h1 {
             margin-top: 0;
@@ -34,6 +35,7 @@
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            width: 100%;
         }
         button {
             padding: 8px 16px;
@@ -43,6 +45,7 @@
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease-in-out;
+            width: 100%;
         }
         button:hover {
             background-color: #0056b3;
@@ -58,37 +61,34 @@
     <div class="container">
         <h1>Cek Umur</h1>
         
-        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <form>
             <label>Tanggal Lahir Anjeun:</label><br>
-            <input type="date" name="tanggal_lahir">
+            <input type="date" id="tanggal_lahir">
             <br><br>
-            <button type="submit">Cek</button>
+            <button type="button" onclick="cekUmur()">Cek</button>
         </form>
         
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $tanggal = isset($_POST["tanggal_lahir"]) ? $_POST["tanggal_lahir"] : null;
-            if ($tanggal) {
-                $tanggal_lahir = strtotime($tanggal);
-                $hari_ini = time();
-                $umur_hari = floor(($hari_ini - $tanggal_lahir) / (60 * 60 * 24));
-                $umur_tahun = floor($umur_hari / 365);
-                
-                $hariNames = ["Minggu", "Senen", "Salasa", "Rebo", "Kemis", "Jumat", "Sabtu"];
-                $hari_ini_name = $hariNames[date("w", $hari_ini)];
-                $hari_lahir_name = $hariNames[date("w", $tanggal_lahir)];
-                
-                echo "<div id='result'>";
-                echo "Umur Silaing: " . $umur_tahun . " tahun<br>";
-                echo "Tanggal : " . date("d F Y", $tanggal_lahir) . "<br>";
-                echo "Lahir Poe : " . $hari_lahir_name . "<br>";
-                echo "Catatan : Geura kawin geus kolot :D";
-                echo "</div>";
-            } else {
-                echo "<div id='result'>Pilih heula ...!!</div>";
-            }
-        }
-        ?>
+        <div id="result"></div>
     </div>
+
+    <script>
+        function cekUmur() {
+            const tanggalLahir = document.getElementById("tanggal_lahir").value;
+            const tanggalLahirMillis = new Date(tanggalLahir).getTime();
+            const hariIniMillis = new Date().getTime();
+            const umurMillis = hariIniMillis - tanggalLahirMillis;
+            const umurTahun = Math.floor(umurMillis / (365 * 24 * 60 * 60 * 1000));
+
+            const hariNames = ["Minggu", "Senen", "Salasa", "Rebo", "Kemis", "Jumat", "Sabtu"];
+            const hariIni = new Date().getDay();
+            const hariLahir = new Date(tanggalLahir).getDay();
+
+            const result = document.getElementById("result");
+            result.innerHTML = "Umur Silaing: " + umurTahun + " tahun<br>";
+            result.innerHTML += "Tanggal : " + tanggalLahir + "<br>";
+            result.innerHTML += "Lahir Poe : " + hariNames[hariLahir] + "<br>";
+            result.innerHTML += "Catatan : Geura kawin geus kolot :D";
+        }
+    </script>
 </body>
 </html>
